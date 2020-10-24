@@ -1,0 +1,14 @@
+FROM node:14.11
+
+COPY ./bin/wait-for-it.sh /usr/wait-for-it.sh
+RUN chmod +x /usr/wait-for-it.sh
+
+WORKDIR /var/opt
+COPY ./image-service/package*.json ./
+RUN npm i
+COPY ./image-service ./
+
+
+COPY ./envs/image-service.env ./.env
+
+EXPOSE 3000
